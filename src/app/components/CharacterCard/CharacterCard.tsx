@@ -2,20 +2,23 @@
 
 import CHARACTERS_MOCK_DATA from "@/app/mock/characters";
 import nextImageLoader from "@/app/utils/image/nextImageLoader";
+import { Character } from "@/types/api.types";
 import Image from "next/image";
 import { FC } from "react";
 import { TitleSubtitle } from "../TitleSubtitle";
 
-const ONE_CHARACTER = CHARACTERS_MOCK_DATA.data.characters.results[0];
-
 interface CharacterCardProps {
   type: "small" | "full";
+  character: Character;
 }
 
-const CharacterCard: FC<CharacterCardProps> = ({ type = "small" }) => {
+const CharacterCard: FC<CharacterCardProps> = ({
+  type = "small",
+  character,
+}) => {
   const cardDynamicStyle = {
     name: {
-      small: "sm:text-3xl md:text-lg",
+      small: "sm:text-2xl md:text-base",
       full: "text-2xl sm:text-3xl md:text-4xl",
     },
     descriptionMargins: {
@@ -34,21 +37,25 @@ const CharacterCard: FC<CharacterCardProps> = ({ type = "small" }) => {
         <div className="flex flex-1">
           <div className=" flex w-2/5">
             <Image
-              alt={ONE_CHARACTER.name}
+              alt={character.name}
               loader={nextImageLoader}
-              src={ONE_CHARACTER.image}
+              src={character.image}
               width={800}
               height={600}
               className="object-cover"
             />
           </div>
           <div
-            className={`${cardDynamicStyle.descriptionMargins[type]} flex flex-1  flex-col`}
+            className={`${cardDynamicStyle.descriptionMargins[type]} flex flex-1  flex-col w-3/5`}
           >
             {/* NAME */}
-            <p className={`${cardDynamicStyle.name[type]}  font-mono`}>
-              {ONE_CHARACTER.name}
-            </p>
+            <div>
+              <p
+                className={`${cardDynamicStyle.name[type]}  font-mono truncate`}
+              >
+                {character.name}
+              </p>
+            </div>
 
             <div
               className={`${cardDynamicStyle.statusesMargins[type]} flex  flex-1 flex-row`}
@@ -57,31 +64,33 @@ const CharacterCard: FC<CharacterCardProps> = ({ type = "small" }) => {
                 <TitleSubtitle
                   type={type}
                   title="Status:"
-                  subtitle={ONE_CHARACTER.status}
+                  subtitle={character.status}
                 />
                 <TitleSubtitle
                   type={type}
                   title="Gender:"
-                  subtitle={ONE_CHARACTER.species}
+                  subtitle={character.gender}
                 />
                 <TitleSubtitle
                   type={type}
                   title="Species:"
-                  subtitle={ONE_CHARACTER.species}
+                  subtitle={character.species}
                 />
               </div>
-              <div className="flex flex-1 flex-col">
-                <TitleSubtitle
-                  type={type}
-                  title="Location:"
-                  subtitle={ONE_CHARACTER.location.name}
-                />
-                <TitleSubtitle
-                  type={type}
-                  title="Origin:"
-                  subtitle={ONE_CHARACTER.origin.name}
-                />
-              </div>
+              {type === "full" ? (
+                <div className="flex flex-1 flex-col">
+                  <TitleSubtitle
+                    type={type}
+                    title="Location:"
+                    subtitle={character.location.name}
+                  />
+                  <TitleSubtitle
+                    type={type}
+                    title="Origin:"
+                    subtitle={character.origin.name}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
