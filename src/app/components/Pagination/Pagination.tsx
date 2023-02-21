@@ -1,90 +1,181 @@
-const Pagination = () => {
+import { FC } from "react";
+import { PageDataType } from "./types";
+
+const PrevPage: FC<PageDataType> = ({ data: { url } }) => {
+  return (
+    <li>
+      <a
+        href={url}
+        className="block px-3 py-2 ml-0 leading-tight rounded-l-lg   text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <span className="sr-only">Previous 10 pages</span>
+        <div className="flex flex-row">
+          <svg
+            aria-hidden="true"
+            className="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <p>- 10</p>
+        </div>
+      </a>
+    </li>
+  );
+};
+
+const CurrentPage: FC<PageDataType["data"]> = ({ pageNumber }) => (
+  <li>
+    <p
+      aria-current="page"
+      className="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+    >
+      {pageNumber}
+    </p>
+  </li>
+);
+
+const StandardPage: FC<PageDataType> = ({ data: { url, pageNumber } }) => (
+  <li>
+    <a
+      href={url}
+      className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+    >
+      {pageNumber}
+    </a>
+  </li>
+);
+
+const NextPage: FC<PageDataType> = ({ data: { url } }) => {
+  return (
+    <li>
+      <a
+        href={url}
+        className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <span className="sr-only">Next 10 pages</span>
+        <div className="flex flex-row">
+          <p>+ 10</p>
+
+          <svg
+            aria-hidden="true"
+            className="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+      </a>
+    </li>
+  );
+};
+
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+}
+
+const bodyUrl = "/?page=";
+
+const getPaginationUrlAndNumber = (
+  currentPage: number,
+  totalPages: number,
+  pageIncrementor: number
+) => {
+  const url =
+    currentPage + pageIncrementor > 0 &&
+    currentPage + pageIncrementor < totalPages
+      ? bodyUrl + (currentPage + pageIncrementor)
+      : "";
+
+  const pageNumber = currentPage + pageIncrementor;
+
+  return {
+    url,
+    pageNumber,
+  };
+};
+
+const Pagination: FC<PaginationProps> = ({ currentPage, totalPages }) => {
+  const prevPageData = getPaginationUrlAndNumber(currentPage, totalPages, -10);
+  const nextPageData = getPaginationUrlAndNumber(currentPage, totalPages, 10);
+
+  const prevPageMinus3Data = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    -3
+  );
+
+  const prevPageMinus2Data = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    -2
+  );
+
+  const prevPageMinus1Data = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    -1
+  );
+
+  const prevPagePlus3Data = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    3
+  );
+
+  const prevPagePlus2Data = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    2
+  );
+
+  const prevPagePlus1Data = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    1
+  );
+
   return (
     <nav aria-label="Page navigation">
       <ul className="inline-flex items-center -space-x-px">
-        <li>
-          <a
-            href="#"
-            className="block px-3 py-2 ml-0 leading-tight rounded-l-lg   text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <span className="sr-only">Previous</span>
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            1
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            2
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            aria-current="page"
-            className="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-          >
-            3
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            4
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            5
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <span className="sr-only">Next</span>
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </li>
+        {prevPageData.url ? <PrevPage data={prevPageData} /> : null}
+
+        {prevPageMinus3Data.url ? (
+          <StandardPage data={prevPageMinus3Data} />
+        ) : null}
+        {prevPageMinus2Data.url ? (
+          <StandardPage data={prevPageMinus2Data} />
+        ) : null}
+        {prevPageMinus1Data.url ? (
+          <StandardPage data={prevPageMinus1Data} />
+        ) : null}
+
+        <CurrentPage pageNumber={currentPage} />
+
+        {prevPagePlus1Data.url ? (
+          <StandardPage data={prevPagePlus1Data} />
+        ) : null}
+        {prevPagePlus2Data.url ? (
+          <StandardPage data={prevPagePlus2Data} />
+        ) : null}
+        {prevPagePlus3Data.url ? (
+          <StandardPage data={prevPagePlus3Data} />
+        ) : null}
+
+        {nextPageData.url ? <NextPage data={nextPageData} /> : null}
       </ul>
     </nav>
   );
