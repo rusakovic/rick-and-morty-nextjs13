@@ -21,7 +21,7 @@ const SearchResultScreen: FC<SearchResultScreenProps> = ({
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {results.map((character) => {
           return (
-            <Link href="/characters/1" key={character.name}>
+            <Link href={`/characters/${character.id}`} key={character.id}>
               <CharacterCard type="small" character={character} />
             </Link>
           );
