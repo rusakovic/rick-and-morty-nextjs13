@@ -35,18 +35,17 @@ const getCharacter = async (characterId: number) => {
   return characterData;
 };
 
-export async function generateMetadata({ params, searchParams }) {
-  console.log(
-    "🚀 ~ file: page.tsx:6 ~ generateMetadata ~ searchParams:",
-    searchParams
-  );
-  console.log("🚀 ~ file: page.tsx:6 ~ generateMetadata ~ params:", params);
-  // const characterData = await getCharacter(Number(params.id));
+export async function generateMetadata({
+  params: { characterId },
+}: {
+  params: { characterId: string };
+}) {
+  const characterData = await getCharacter(Number(characterId));
+  const pageTitle = characterData?.name
+    ? `${characterData.name} - ${characterData.location.name} - Rick & Morty character description`
+    : "Rick & Morty character description";
 
-  // // For /products/123, params.id is "123"
-  // // For /products/123?foo=bar, searchParams.get("foo") is "bar"
-  // // The return value is the metadata object
-  // return { title: characterData.name };
+  return { title: pageTitle };
 }
 
 export default CharacterPage;
