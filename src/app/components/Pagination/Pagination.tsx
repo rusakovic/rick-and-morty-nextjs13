@@ -85,14 +85,17 @@ const NextPage: FC<PageDataType> = ({ data: { url } }) => {
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  gender: string | undefined;
 }
 
 const bodyUrl = "/?page=";
+const genderUrl = "&gender=";
 
 const getPaginationUrlAndNumber = (
   currentPage: number,
   totalPages: number,
-  pageIncrementor: number
+  pageIncrementor: number,
+  gender: string | undefined
 ) => {
   const url =
     currentPage + pageIncrementor > 0 &&
@@ -100,52 +103,74 @@ const getPaginationUrlAndNumber = (
       ? bodyUrl + (currentPage + pageIncrementor)
       : "";
 
+  const urlWithGender = gender && url ? url + `${genderUrl}${gender}` : "";
+
   const pageNumber = currentPage + pageIncrementor;
 
   return {
-    url,
+    url: urlWithGender,
     pageNumber,
   };
 };
 
-const Pagination: FC<PaginationProps> = ({ currentPage, totalPages }) => {
-  const prevPageData = getPaginationUrlAndNumber(currentPage, totalPages, -10);
-  const nextPageData = getPaginationUrlAndNumber(currentPage, totalPages, 10);
+const Pagination: FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  gender,
+}) => {
+  const prevPageData = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    -10,
+    gender
+  );
+  const nextPageData = getPaginationUrlAndNumber(
+    currentPage,
+    totalPages,
+    10,
+    gender
+  );
 
   const prevPageMinus3Data = getPaginationUrlAndNumber(
     currentPage,
     totalPages,
-    -3
+    -3,
+    gender
   );
 
   const prevPageMinus2Data = getPaginationUrlAndNumber(
     currentPage,
     totalPages,
-    -2
+    -2,
+    gender
   );
 
   const prevPageMinus1Data = getPaginationUrlAndNumber(
     currentPage,
     totalPages,
-    -1
+    -1,
+    gender
   );
 
   const prevPagePlus3Data = getPaginationUrlAndNumber(
     currentPage,
     totalPages,
-    3
+    3,
+    gender
   );
 
   const prevPagePlus2Data = getPaginationUrlAndNumber(
     currentPage,
     totalPages,
-    2
+    2,
+    gender
   );
 
   const prevPagePlus1Data = getPaginationUrlAndNumber(
     currentPage,
     totalPages,
-    1
+    1,
+    gender
   );
 
   return (

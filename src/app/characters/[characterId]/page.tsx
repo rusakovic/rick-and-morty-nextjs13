@@ -3,17 +3,15 @@ import { GradientButtonWithText } from "@/app/components/GradientButtonWithText"
 import { Suspense } from "react";
 
 const CharacterPage = async ({
-  params,
+  params: { characterId },
 }: {
   params: { characterId: string };
 }) => {
-  const characterId = Number(params?.characterId);
-
-  const characterData = await getCharacter(characterId);
+  const characterData = await getCharacter(Number(characterId));
 
   return (
     <div className="flex flex-1 justify-center mt-20">
-      <div className="w-1/2">
+      <div className="w-11/12  md:w-2/3 max-w-screen-md">
         <GradientButtonWithText text="< back" onNavigateBackUrl="/" />
         <div className="flex flex-1 justify-center ">
           <Suspense fallback={<div>Loading...</div>}>

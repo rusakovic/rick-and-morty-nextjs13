@@ -29,6 +29,7 @@ export enum Gender {
   Female = "Female",
   Male = "Male",
   Unknown = "unknown",
+  Genderless = "genderless",
 }
 
 export interface Location {
@@ -45,4 +46,11 @@ export enum Status {
   Alive = "Alive",
   Dead = "Dead",
   Unknown = "unknown",
+}
+
+export enum ApiRequestGender {
+  Female = "female",
+  Male = "male",
+  Unknown = "unknown",
+  Genderless = "genderless",
 }

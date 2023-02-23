@@ -7,6 +7,7 @@ import { FC } from "react";
 interface SearchResultScreenProps {
   data: CharacterRequest;
   currentPage: number;
+  gender: string | undefined;
 }
 
 const SearchResultScreen: FC<SearchResultScreenProps> = ({
@@ -15,6 +16,7 @@ const SearchResultScreen: FC<SearchResultScreenProps> = ({
     results,
     info: { pages },
   },
+  gender,
 }) => {
   return (
     <div className="container mx-auto">
@@ -29,8 +31,12 @@ const SearchResultScreen: FC<SearchResultScreenProps> = ({
       </div>
 
       {/* PAGINATION */}
-      <div className="flex my-20 justify-center ">
-        <Pagination currentPage={currentPage} totalPages={pages} />
+      <div className="flex py-20 justify-center ">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={pages}
+          gender={gender}
+        />
       </div>
     </div>
   );
