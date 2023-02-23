@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -30,7 +31,10 @@ const Hero = () => {
         </div>
 
         {/* BUTTON */}
-        <div className="flex flex-row align-middle rounded-md w-fit px-10 py-3  bg-gradient-to-r from-royal-blue to-electric-violet">
+        <Link
+          href="https://play.hbomax.com/page/urn:hbo:page:GXkRjxwjR68PDwwEAABKJ:type:series"
+          className="flex flex-row cursor-pointer align-middle rounded-md w-fit px-10 py-3  bg-gradient-to-r from-royal-blue to-electric-violet"
+        >
           <div className="w-5 h-5 mr-2">
             <Image
               src="/images/hero/person.png"
@@ -41,7 +45,7 @@ const Hero = () => {
             />
           </div>
           <p className="font-semibold leading-5">SIGN IN</p>
-        </div>
+        </Link>
       </div>
     </div>
   );

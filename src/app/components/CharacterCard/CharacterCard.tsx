@@ -1,7 +1,3 @@
-"use client";
-
-import CHARACTERS_MOCK_DATA from "@/app/mock/characters";
-import nextImageLoader from "@/app/utils/image/nextImageLoader";
 import { Character } from "@/types/api.types";
 import Image from "next/image";
 import { FC } from "react";
@@ -38,7 +34,6 @@ const CharacterCard: FC<CharacterCardProps> = ({
           <div className=" flex w-2/5">
             <Image
               alt={character.name}
-              loader={nextImageLoader}
               src={character.image}
               width={800}
               height={600}
