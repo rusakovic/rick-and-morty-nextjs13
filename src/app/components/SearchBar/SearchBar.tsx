@@ -33,12 +33,9 @@ const SearchBar: FC<SearchBarProps> = ({ characterName }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const search = searchParams.get("gender");
-  console.log("🚀 ~ file: SearchBar.tsx:10 ~ SearchBar ~ search:", search);
+  const search = searchParams && searchParams.get("gender");
   const defaultFilter = search ? getGender(search) : "default";
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log("🚀 ~ file: SearchBar.tsx:7 ~ onSelect ~ e:", e.target.value);
-
     // INFO: Reset search input field
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -48,15 +45,11 @@ const SearchBar: FC<SearchBarProps> = ({ characterName }) => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("🚀 ~ file: SearchBar.tsx:32 ~ onSubmit ~ e:", e);
 
     // INFO: The issue in React types for forms. Should be resolved in next releases
     /* @ts-expect-error */
     const searchValue = e.target?.elements?.search?.value;
-    console.log(
-      "🚀 ~ file: SearchBar.tsx:34 ~ onSubmit ~ searchValue:",
-      searchValue
-    );
+
     if (!searchValue) {
       return;
     }
@@ -77,18 +70,10 @@ const SearchBar: FC<SearchBarProps> = ({ characterName }) => {
         <option disabled={true} value="default">
           Filter by gender
         </option>
-        <option value="male" selected={search === "male"}>
-          male
-        </option>
-        <option value="female" selected={search === "female"}>
-          female
-        </option>
-        <option value="genderless" selected={search === "genderless"}>
-          genderless
-        </option>
-        <option value="unknown" selected={search === "unknown"}>
-          unknown
-        </option>
+        <option value="male">male</option>
+        <option value="female">female</option>
+        <option value="genderless">genderless</option>
+        <option value="unknown">unknown</option>
       </select>
 
       {/* SEARCH INPUT */}
@@ -117,9 +102,9 @@ const SearchBar: FC<SearchBarProps> = ({ characterName }) => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>

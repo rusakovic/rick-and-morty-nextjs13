@@ -7,6 +7,7 @@ const Hero = () => {
       {/* BG IMAGE */}
       <div className="absolute">
         <Image
+          priority
           src="/images/tile.jpeg"
           width={2000}
           height={500}

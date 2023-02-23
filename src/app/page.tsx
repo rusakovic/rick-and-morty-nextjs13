@@ -9,7 +9,6 @@ export default async function Home({
   params: { slug: string };
   searchParams?: Record<string, string> | URLSearchParams | undefined;
 }) {
-  console.log("🚀 ~ file: page.tsx:13 ~ searchParams:", searchParams);
   const urlSearchParams = new URLSearchParams(searchParams);
   const pageNumber = Number(urlSearchParams.get("page")) || 1;
   const gender = urlSearchParams.get("gender") || undefined;
