@@ -2,6 +2,8 @@ import { Hero } from "@/app/components/Hero";
 import { SearchBar } from "@/app/components/SearchBar";
 import { SearchResultScreen } from "@/app/screens/SearchResultScreen";
 import { getCharacters } from "@/utils/fetch/getCharacters";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function Home({
   searchParams,
@@ -22,17 +24,19 @@ export default async function Home({
         <div className="bg-searchresult bg-cover bg-fixed bg-no-repeat h-full">
           <div className="mt-10  px-10">
             <SearchBar characterName={characterName} />
-            {ok && data ? (
-              <SearchResultScreen
-                data={data}
-                currentPage={pageNumber}
-                gender={gender}
-              />
-            ) : (
-              <div className="flex flex-1 justify-center mt-10">
-                <p>Character not found</p>
-              </div>
-            )}
+            <Suspense fallback={<Loading />}>
+              {ok && data ? (
+                <SearchResultScreen
+                  data={data}
+                  currentPage={pageNumber}
+                  gender={gender}
+                />
+              ) : (
+                <div className="flex flex-1 justify-center mt-10">
+                  <p>Character not found</p>
+                </div>
+              )}
+            </Suspense>
           </div>
         </div>
       </div>
