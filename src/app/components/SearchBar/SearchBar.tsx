@@ -1,16 +1,8 @@
 "use client";
 
-import {
-  ChangeEvent,
-  EventHandler,
-  FC,
-  FormEventHandler,
-  LegacyRef,
-  MutableRefObject,
-  useRef,
-} from "react";
+import { ChangeEvent, FC, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ApiRequestGender, Gender } from "@/types/api.types";
+import { ApiRequestGender } from "@/types/api.types";
 
 const getGender = (gender: ApiRequestGender | string) => {
   if (Object.values(ApiRequestGender).includes(gender as ApiRequestGender)) {
@@ -65,7 +57,7 @@ const SearchBar: FC<SearchBarProps> = ({ characterName }) => {
         onChange={onSelect}
         defaultValue={defaultFilter}
         id="gender"
-        className="border w-1/5 min-w-fit  pl-3 bg-transparent border-gray-700 placeholder-gray-400 text-gray-400  focus:border-gray-500 outline-none"
+        className="border w-1/5 min-w-fit  rounded-l-lg pl-3 bg-transparent border-gray-700 placeholder-gray-400 text-gray-400  focus:border-gray-500 outline-none"
       >
         <option disabled={true} value="default">
           Filter by gender
@@ -106,7 +98,7 @@ const SearchBar: FC<SearchBarProps> = ({ characterName }) => {
               strokeLinejoin="round"
               strokeWidth="2"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
+            />
           </svg>
           <span className="sr-only">Search</span>
         </button>

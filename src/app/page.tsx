@@ -16,12 +16,13 @@ export default async function Home({
   const gender = urlSearchParams.get("gender") || undefined;
   const characterName = urlSearchParams.get("name") || undefined;
   const { ok, data } = await getCharacters(pageNumber, gender, characterName);
+  console.log("🚀 ~ file: page.tsx:19 ~ data:", data);
 
   return (
     <main>
       <div className="w-screen">
         <Hero />
-        <div className="bg-searchresult bg-cover bg-fixed bg-no-repeat h-full">
+        <div className="h-full bg-searchresult bg-cover bg-fixed bg-no-repeat">
           <div className="mt-10  px-10">
             <SearchBar characterName={characterName} />
             <Suspense fallback={<Loading />}>
@@ -32,7 +33,7 @@ export default async function Home({
                   gender={gender}
                 />
               ) : (
-                <div className="flex flex-1 justify-center mt-10">
+                <div className="mt-10 flex flex-1 justify-center">
                   <p>Character not found</p>
                 </div>
               )}
