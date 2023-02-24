@@ -16,7 +16,6 @@ export default async function Home({
   const gender = urlSearchParams.get("gender") || undefined;
   const characterName = urlSearchParams.get("name") || undefined;
   const { ok, data } = await getCharacters(pageNumber, gender, characterName);
-  console.log("🚀 ~ file: page.tsx:19 ~ data:", data);
 
   return (
     <main>
