@@ -1,3 +1,7 @@
+## Online demo
+
+https://rick-and-morty-nextjs13.vercel.app/
+
 ## Getting Started
 
 1. `npm i`
